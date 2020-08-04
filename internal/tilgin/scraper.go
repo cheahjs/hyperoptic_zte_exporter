@@ -182,7 +182,7 @@ func (s *Scraper) parseReceiveStats(ch chan<- prometheus.Metric, label, name, va
 	if receiveName == "" {
 		return
 	}
-	receiveValue, parseErr := strconv.Atoi(trimAndCleanString(value))
+	receiveValue, parseErr := strconv.ParseInt(trimAndCleanString(value), 10, 64)
 	if parseErr != nil {
 		s.logger.Errorw("Failed to parse value", "error", parseErr)
 		return
@@ -226,7 +226,7 @@ func (s *Scraper) parseTransmitStats(ch chan<- prometheus.Metric, label, name, v
 	if transmitName == "" {
 		return
 	}
-	transmitValue, parseErr := strconv.Atoi(trimAndCleanString(value))
+	transmitValue, parseErr := strconv.ParseInt(trimAndCleanString(value), 10, 64)
 	if parseErr != nil {
 		s.logger.Errorw("Failed to parse value", "error", parseErr)
 		return
