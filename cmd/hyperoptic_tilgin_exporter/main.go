@@ -40,9 +40,11 @@ func main() {
 		logger.Fatal("Password is not set")
 	}
 
+	logger.Info("Creating scraper")
 	scraper := tilgin.NewScraper(logger.Sugar(), *username, password, *routerHost)
 	prometheus.MustRegister(scraper)
 
 	http.Handle("/metrics", promhttp.Handler())
+	logger.Sugar().Info("Starting to serve traffic on: ", *listenAddr)
 	logger.Sugar().Fatal(http.ListenAndServe(*listenAddr, nil))
 }
