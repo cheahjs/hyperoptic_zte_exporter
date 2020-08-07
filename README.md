@@ -3,6 +3,8 @@
 Prometheus exporter for Tilgin HG238x devices.
 Only tested with Hyperoptic firmware.
 
+![Example Grafana Graphs](./docs/example_grafana.png)
+
 ## Running
 
 ### Building from source
