@@ -17,7 +17,7 @@ ROUTER_PASSWORD=password ./hyperoptic_tilgin_exporter -username=admin -host=http
 ### Docker
 
 ```shell script
-docker run -e "ROUTER_PASSWORD=password" deathmax/hyperoptic_tilgin_exporter -username=admin -host=http://192.168.1.1 -listen-addr=:23465
+docker run -e "ROUTER_PASSWORD=password" -p 23465:23465 deathmax/hyperoptic_tilgin_exporter -username=admin -host=http://192.168.1.1 -listen-addr=:23465
 ```
 
 ## Exported Metrics
