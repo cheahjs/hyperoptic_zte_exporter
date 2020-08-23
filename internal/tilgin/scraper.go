@@ -107,6 +107,8 @@ func (s *Scraper) Describe(descs chan<- *prometheus.Desc) {
 }
 
 func (s *Scraper) Scrape(ch chan<- prometheus.Metric) error {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
 	s.logger.Info("Starting scrape")
 
 	hmacSecret, err := s.fetchHMACSecret()
