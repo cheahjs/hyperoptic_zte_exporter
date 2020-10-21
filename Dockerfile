@@ -5,6 +5,6 @@ ADD . /go/src/app
 RUN go get -d -v ./...
 RUN go build -o /go/bin/app github.com/cheahjs/hyperoptic_tilgin_exporter/cmd/hyperoptic_tilgin_exporter
 
-FROM discolix/static:latest
+FROM alpine:latest
 COPY --from=build /go/bin/app /
 ENTRYPOINT ["/app"]
