@@ -19,7 +19,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=deathmax/hyperoptic_tilgin_exporter
+          DOCKER_IMAGE=deathmax/hyperoptic_zte_exporter
           VERSION=noop
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}

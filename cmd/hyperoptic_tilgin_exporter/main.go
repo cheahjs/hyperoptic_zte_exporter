@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/cheahjs/hyperoptic_tilgin_exporter/internal/tilgin"
+	"github.com/cheahjs/hyperoptic_zte_exporter/internal/zte"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
@@ -41,7 +41,7 @@ func main() {
 	}
 
 	logger.Info("Creating scraper")
-	scraper := tilgin.NewScraper(logger.Sugar(), *username, password, *routerHost)
+	scraper := zte.NewScraper(logger.Sugar(), *username, password, *routerHost)
 	prometheus.MustRegister(scraper)
 
 	http.Handle("/metrics", promhttp.Handler())

@@ -1,6 +1,6 @@
-module github.com/cheahjs/hyperoptic_tilgin_exporter
+module github.com/cheahjs/hyperoptic_zte_exporter
 
-go 1.14
+go 1.16
 
 require (
 	github.com/PuerkitoBio/goquery v1.5.1

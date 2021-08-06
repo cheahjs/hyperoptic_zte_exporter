@@ -1,4 +1,4 @@
-package tilgin
+package zte
 
 import (
 	"crypto/hmac"
@@ -49,42 +49,42 @@ func NewScraper(logger *zap.SugaredLogger, username, password, routerHost string
 		password:   password,
 		routerHost: routerHost,
 		txWANTrafficBytes: prometheus.NewDesc(
-			"tilgin_wan_tx_bytes",
+			"zte_wan_tx_bytes",
 			"Total bytes sent on WAN interface",
 			nil, nil,
 		),
 		txWANTrafficPackets: prometheus.NewDesc(
-			"tilgin_wan_tx_packets",
+			"zte_wan_tx_packets",
 			"Total packets sent on WAN interface",
 			nil, nil,
 		),
 		rxWANTrafficBytes: prometheus.NewDesc(
-			"tilgin_wan_rx_bytes",
+			"zte_wan_rx_bytes",
 			"Total bytes received on WAN interface",
 			nil, nil,
 		),
 		rxWANTrafficPackets: prometheus.NewDesc(
-			"tilgin_wan_rx_packets",
+			"zte_wan_rx_packets",
 			"Total packets received on WAN interface",
 			nil, nil,
 		),
 		txLANTrafficBytes: prometheus.NewDesc(
-			"tilgin_lan_tx_bytes",
+			"zte_lan_tx_bytes",
 			"Total bytes sent on LAN interfaces",
 			[]string{"interface"}, nil,
 		),
 		txLANTrafficPackets: prometheus.NewDesc(
-			"tilgin_lan_tx_packets",
+			"zte_lan_tx_packets",
 			"Total packets sent on LAN interfaces",
 			[]string{"interface"}, nil,
 		),
 		rxLANTrafficBytes: prometheus.NewDesc(
-			"tilgin_lan_rx_bytes",
+			"zte_lan_rx_bytes",
 			"Total bytes received on LAN interfaces",
 			[]string{"interface"}, nil,
 		),
 		rxLANTrafficPackets: prometheus.NewDesc(
-			"tilgin_lan_rx_packets",
+			"zte_lan_rx_packets",
 			"Total packets received on LAN interfaces",
 			[]string{"interface"}, nil,
 		),
