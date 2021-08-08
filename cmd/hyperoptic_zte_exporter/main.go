@@ -15,7 +15,7 @@ func main() {
 	debug := flag.Bool("debug", false, "Enable debug logging")
 	username := flag.String("username", "", "Username to login as")
 	routerHost := flag.String("host", "http://192.168.1.1", "Router host")
-	listenAddr := flag.String("listen-addr", ":23465", "Address to listen for metrics")
+	listenAddr := flag.String("listen-addr", ":23466", "Address to listen for metrics")
 	password := os.Getenv("ROUTER_PASSWORD")
 
 	flag.Parse()
