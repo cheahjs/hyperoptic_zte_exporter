@@ -17,7 +17,7 @@ ROUTER_PASSWORD=password ./hyperoptic_zte_exporter -username=admin -host=http://
 ### Docker
 
 ```shell script
-docker run -e "ROUTER_PASSWORD=password" -p 23466:23466 deathmax/hyperoptic_zte_exporter -username=admin -host=http://192.168.1.1 -listen-addr=:23466
+docker run -e "ROUTER_PASSWORD=password" -p 23466:23466 quay.io/jscheah/hyperoptic_zte_exporter -username=admin -host=http://192.168.1.1 -listen-addr=:23466
 ```
 
 ## Exported Metrics
