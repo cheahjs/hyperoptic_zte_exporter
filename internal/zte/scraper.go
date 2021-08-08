@@ -265,7 +265,7 @@ func (s *Scraper) fetchInternetStats(ch chan<- prometheus.Metric) {
 				value,
 			)
 		case "Status":
-			up := paramValue == "UP"
+			up := paramValue == "Up"
 			ch <- prometheus.MustNewConstMetric(
 				s.wanUp,
 				prometheus.GaugeValue,
