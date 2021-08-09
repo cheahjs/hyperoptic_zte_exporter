@@ -184,18 +184,20 @@ type internetEthInterfaceResponse struct {
 func (s *Scraper) fetchInternetStats(ch chan<- prometheus.Metric) {
 	s.logger.Info("Fetching internet stats")
 	// Need to visit the UI page before the "XML API" starts returning data
-	_, err := s.client.Get(fmt.Sprintf("%s/getpage.lua?pid=123&nextpage=Internet_AdminInternetStatus_t.lp&Menu3Location=0", s.routerHost))
+	resp, err := s.client.Get(fmt.Sprintf("%s/getpage.lua?pid=123&nextpage=Internet_AdminInternetStatus_t.lp&Menu3Location=0", s.routerHost))
 	if err != nil {
 		s.logger.Errorw("Failed to call getpage.lua",
 			"error", err)
 		return
 	}
+	defer resp.Body.Close()
 	internetResp, err := s.client.Get(fmt.Sprintf("%s/common_page/internet_eth_interface_lua.lua", s.routerHost))
 	if err != nil {
 		s.logger.Errorw("Failed to get internet stats",
 			"error", err)
 		return
 	}
+	defer internetResp.Body.Close()
 	body, err := ioutil.ReadAll(internetResp.Body)
 	if err != nil {
 		s.logger.Errorw("Failed to read body",
@@ -309,18 +311,20 @@ type wlanStatusResponse struct {
 func (s *Scraper) fetchWLANStats(ch chan<- prometheus.Metric) {
 	s.logger.Info("Fetching WLAN stats")
 	// Need to visit the UI page before the "XML API" starts returning data
-	_, err := s.client.Get(fmt.Sprintf("%s/getpage.lua?pid=123&nextpage=Localnet_LocalnetStatusUser_t.lp&Menu3Location=0", s.routerHost))
+	resp, err := s.client.Get(fmt.Sprintf("%s/getpage.lua?pid=123&nextpage=Localnet_LocalnetStatusUser_t.lp&Menu3Location=0", s.routerHost))
 	if err != nil {
 		s.logger.Errorw("Failed to call getpage.lua",
 			"error", err)
 		return
 	}
+	defer resp.Body.Close()
 	internetResp, err := s.client.Get(fmt.Sprintf("%s/common_page/wlanStatus_lua.lua", s.routerHost))
 	if err != nil {
 		s.logger.Errorw("Failed to get WLAN stats",
 			"error", err)
 		return
 	}
+	defer internetResp.Body.Close()
 	body, err := ioutil.ReadAll(internetResp.Body)
 	if err != nil {
 		s.logger.Errorw("Failed to read body",
@@ -442,18 +446,20 @@ type lanStatusResponse struct {
 func (s *Scraper) fetchLANStats(ch chan<- prometheus.Metric) {
 	s.logger.Info("Fetching LAN stats")
 	// Need to visit the UI page before the "XML API" starts returning data
-	_, err := s.client.Get(fmt.Sprintf("%s/getpage.lua?pid=123&nextpage=Localnet_LocalnetStatusUser_t.lp&Menu3Location=0", s.routerHost))
+	resp, err := s.client.Get(fmt.Sprintf("%s/getpage.lua?pid=123&nextpage=Localnet_LocalnetStatusUser_t.lp&Menu3Location=0", s.routerHost))
 	if err != nil {
 		s.logger.Errorw("Failed to call getpage.lua",
 			"error", err)
 		return
 	}
+	defer resp.Body.Close()
 	internetResp, err := s.client.Get(fmt.Sprintf("%s/common_page/lanStatus_lua.lua", s.routerHost))
 	if err != nil {
 		s.logger.Errorw("Failed to get LAN stats",
 			"error", err)
 		return
 	}
+	defer internetResp.Body.Close()
 	body, err := ioutil.ReadAll(internetResp.Body)
 	if err != nil {
 		s.logger.Errorw("Failed to read body",
@@ -530,6 +536,7 @@ func (s *Scraper) fetchLoginCsrfSessionToken() (string, error) {
 			"error", err)
 		return "", errors.Wrap(err, "failed to get index page")
 	}
+	defer indexResp.Body.Close()
 	body, err := ioutil.ReadAll(indexResp.Body)
 	if err != nil {
 		s.logger.Errorw("Failed to read body",
@@ -553,6 +560,7 @@ func (s *Scraper) fetchLoginToken() ([]byte, error) {
 	s.logger.Info("Fetching login token")
 	tokenResp, err := s.client.Get(
 		fmt.Sprintf("%s/function_module/login_module/login_page/logintoken_lua.lua", s.routerHost))
+	defer tokenResp.Body.Close()
 	if err != nil {
 		s.logger.Errorw("Failed to get login token",
 			"error", err)
@@ -580,6 +588,7 @@ func (s *Scraper) login(sessionToken string, loginToken []byte) error {
 		"Username":      {s.username},
 		"Password":      {s.passwordHash(loginToken)},
 	})
+	defer loginResp.Body.Close()
 	if err != nil {
 		return errors.Wrap(err, "failed to post login")
 	}
